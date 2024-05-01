@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
-public class ApplePicker : MonoBehaviour
+public class Picker : MonoBehaviour
 {
     [SerializeField] private int _countOfApple = 0;
+
+    public event Action PickedUpFirstAidKit;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -10,6 +13,11 @@ public class ApplePicker : MonoBehaviour
         {
             _countOfApple++;
             Destroy(apple.gameObject);
+        }
+        else if (collision.transform.TryGetComponent(out FirstAidKit firstAidKit))
+        {
+            PickedUpFirstAidKit?.Invoke();
+            Destroy(firstAidKit.gameObject);
         }
     }
 }

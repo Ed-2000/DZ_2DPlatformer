@@ -1,25 +1,22 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PlayerRenderer), typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
     private const string Horizontal = nameof(Horizontal);
 
     [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private float _speed = 3f;
     [SerializeField] private float _jumpForce = 3f;
     [SerializeField] private float _distanceToGround = 1.25f;
+    [SerializeField] private float _speed = 3f;
 
-    private Animator _animator;
-    private int _isRun = Animator.StringToHash("IsRun");
     private Rigidbody2D _rigidbody;
-    private SpriteRenderer _spriteRenderer;
+    private PlayerRenderer _playerRenderer;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+        _playerRenderer = GetComponent<PlayerRenderer>();
     }
 
     private void Update()
@@ -34,17 +31,14 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis(Horizontal);
         transform.Translate(Vector2.right * horizontalInput * _speed * Time.deltaTime);
-        Flip(horizontalInput);
 
-        if (horizontalInput == 0)
-            _animator.SetBool(_isRun, false);
-        else
-            _animator.SetBool(_isRun, true);
+        _playerRenderer.SwitchAnimations(horizontalInput);
+        _playerRenderer.Flip(horizontalInput);
     }
 
     private void Jump()
     {
-        _rigidbody.AddForce(Vector2.up * _jumpForce * Time.deltaTime, ForceMode2D.Impulse);
+        _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
 
     private bool CheckIsOnGround()
@@ -56,13 +50,5 @@ public class PlayerMovement : MonoBehaviour
             isOnGround = true;
 
         return isOnGround;
-    }
-
-    void Flip(float horizontalInput)
-    {
-        if (horizontalInput > 0)
-            _spriteRenderer.flipX = false;
-        else if (horizontalInput < 0)
-            _spriteRenderer.flipX = true;
     }
 }
