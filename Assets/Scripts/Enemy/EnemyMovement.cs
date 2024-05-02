@@ -1,33 +1,79 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyRenderer))]
-public class EnemyMovement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D), typeof(EnemyRenderer), typeof(EnemyVision))]
+public class EnemyMovement : HumanoidMovement
 {
     [SerializeField] private Transform[] _waypoints;
-    [SerializeField] private float _speed = 3f;
 
-    private EnemyRenderer _enemyRebderer;
+    private EnemyRenderer _enemyRenderer;
+    private EnemyVision _enemyVision;
+    private Vector3 _targetWaypoinPosition;
     private int _targetWaypointIndex = 0;
+    private bool _isSeePlayer = false;
     private float _minDistanceToWaypoint = 0.5f;
+    private float _timePassedBetweenJumps = 1f;
 
     private void Awake()
     {
-        _enemyRebderer = GetComponent<EnemyRenderer>();
+        _enemyRenderer = GetComponent<EnemyRenderer>();
+        _enemyVision = GetComponent<EnemyVision>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+
+        _targetWaypoinPosition = _waypoints[_targetWaypointIndex].position;
     }
 
     private void Update()
     {
-        Move();
+        _timePassedBetweenJumps += Time.deltaTime;
+
+        SetTargetWaypoint();
+        MoveTo(_targetWaypoinPosition);
     }
 
-    private void Move()
+    private void OnEnable()
     {
-        Vector3 targetWaypoinPosition = _waypoints[_targetWaypointIndex].position;
+        _enemyVision.SeePlayer += PlayerVisibilityHandler;
+        _enemyVision.SeeObstacle += ObstacleVisibilityHandler;
+    }
 
-        if (Vector2.SqrMagnitude(targetWaypoinPosition - transform.position) <= _minDistanceToWaypoint)
-            _targetWaypointIndex = ++_targetWaypointIndex % _waypoints.Length;
+    private void OnDisable()
+    {
+        _enemyVision.SeePlayer -= PlayerVisibilityHandler;
+        _enemyVision.SeeObstacle -= ObstacleVisibilityHandler;
+    }
 
-        _enemyRebderer.Flip(targetWaypoinPosition.x);
-        transform.position = Vector2.MoveTowards(transform.position, _waypoints[_targetWaypointIndex].position, _speed * Time.deltaTime);
+    private void PlayerVisibilityHandler(Vector2 target)
+    {
+        _targetWaypoinPosition = target;
+        _isSeePlayer = true;
+    }
+
+    private void ObstacleVisibilityHandler()
+    {
+        if (CheckIsOnGround() && _timePassedBetweenJumps >= 1)
+        {
+            _timePassedBetweenJumps = 0;
+            Jump();
+        }
+    }
+
+    private void SetTargetWaypoint()
+    {
+        if (Vector2.SqrMagnitude(_targetWaypoinPosition - transform.position) <= _minDistanceToWaypoint)
+        {
+            if (_isSeePlayer == false)
+            {
+                _targetWaypointIndex = ++_targetWaypointIndex % _waypoints.Length;
+                _targetWaypoinPosition = _waypoints[_targetWaypointIndex].position;
+            }
+
+            _isSeePlayer = false;
+        }
+    }
+
+    private void MoveTo(Vector3 target)
+    {
+        _enemyRenderer.Flip(target.x);
+        transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
     }
 }

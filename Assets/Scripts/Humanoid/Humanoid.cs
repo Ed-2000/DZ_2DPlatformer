@@ -12,10 +12,10 @@ public abstract class Humanoid : MonoBehaviour
 
         protected set
         {
-            if (_health < value)
+            if (value < 0)
                 _health = 0;
             else
-                _health -= value;
+                _health = value;
 
             HealthHasChanged?.Invoke(_health);
         }
