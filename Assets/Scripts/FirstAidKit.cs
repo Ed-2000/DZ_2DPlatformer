@@ -1,18 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FirstAidKit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float _restoredHealth = 50;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float RestoredHealth { get => _restoredHealth; private set => _restoredHealth = value; }
 }

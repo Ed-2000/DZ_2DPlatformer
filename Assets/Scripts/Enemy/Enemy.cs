@@ -1,10 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class Enemy : Humanoid
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Awake()
     {
-        if (collision.transform.TryGetComponent(out Player player))
-            Attack(player);
+        Health = GetComponent<Health>();
     }
 }

@@ -5,7 +5,7 @@ public class Picker : MonoBehaviour
 {
     [SerializeField] private int _countOfApple = 0;
 
-    public event Action PickedUpFirstAidKit;
+    public event Action<float> PickedUpFirstAidKit;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,7 +16,7 @@ public class Picker : MonoBehaviour
         }
         else if (collision.transform.TryGetComponent(out FirstAidKit firstAidKit))
         {
-            PickedUpFirstAidKit?.Invoke();
+            PickedUpFirstAidKit?.Invoke(firstAidKit.RestoredHealth);
             Destroy(firstAidKit.gameObject);
         }
     }

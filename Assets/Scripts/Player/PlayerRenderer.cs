@@ -9,7 +9,7 @@ public class PlayerRenderer : HumanoidRenderer
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void SwitchAnimations(float horizontalInput)
@@ -23,8 +23,8 @@ public class PlayerRenderer : HumanoidRenderer
     public override void Flip(float horizontalInput)
     {
         if (horizontalInput > 0)
-            spriteRenderer.flipX = false;
+            SpriteRenderer.flipX = false;
         else if (horizontalInput < 0)
-            spriteRenderer.flipX = true;
+            SpriteRenderer.flipX = true;
     }
 }

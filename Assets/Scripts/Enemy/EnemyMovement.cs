@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(EnemyRenderer), typeof(EnemyVision))]
 public class EnemyMovement : HumanoidMovement
 {
+    [SerializeField] private float _timeBetweenJumps = 0.25f;
     [SerializeField] private Transform[] _waypoints;
 
     private EnemyRenderer _enemyRenderer;
@@ -11,25 +12,16 @@ public class EnemyMovement : HumanoidMovement
     private int _targetWaypointIndex = 0;
     private bool _isSeePlayer = false;
     private float _minDistanceToWaypoint = 0.5f;
-    private float _timePassedBetweenJumps = 1f;
+    private float _timePassedBetweenJumps = 0.1f;
 
     private void Awake()
     {
         _enemyRenderer = GetComponent<EnemyRenderer>();
         _enemyVision = GetComponent<EnemyVision>();
-        _rigidbody = GetComponent<Rigidbody2D>();
+        Rigidbody = GetComponent<Rigidbody2D>();
 
         _targetWaypoinPosition = _waypoints[_targetWaypointIndex].position;
     }
-
-    private void Update()
-    {
-        _timePassedBetweenJumps += Time.deltaTime;
-
-        SetTargetWaypoint();
-        MoveTo(_targetWaypoinPosition);
-    }
-
     private void OnEnable()
     {
         _enemyVision.SeePlayer += PlayerVisibilityHandler;
@@ -42,6 +34,23 @@ public class EnemyMovement : HumanoidMovement
         _enemyVision.SeeObstacle -= ObstacleVisibilityHandler;
     }
 
+    private void Update()
+    {
+        _timePassedBetweenJumps += Time.deltaTime;
+
+        SetTargetWaypoint();
+        MoveTo(_targetWaypoinPosition);
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsNeedToJump == true)
+        {
+            IsNeedToJump = false;
+            Jump();
+        }
+    }
+
     private void PlayerVisibilityHandler(Vector2 target)
     {
         _targetWaypoinPosition = target;
@@ -50,10 +59,10 @@ public class EnemyMovement : HumanoidMovement
 
     private void ObstacleVisibilityHandler()
     {
-        if (CheckIsOnGround() && _timePassedBetweenJumps >= 1)
+        if (_timePassedBetweenJumps >= _timeBetweenJumps)
         {
             _timePassedBetweenJumps = 0;
-            Jump();
+            IsNeedToJump = true;
         }
     }
 
@@ -74,6 +83,6 @@ public class EnemyMovement : HumanoidMovement
     private void MoveTo(Vector3 target)
     {
         _enemyRenderer.Flip(target.x);
-        transform.position = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, target, Speed * Time.deltaTime);
     }
 }

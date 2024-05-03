@@ -9,22 +9,31 @@ public class PlayerMovement : HumanoidMovement
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        Rigidbody = GetComponent<Rigidbody2D>();
         _playerRenderer = GetComponent<PlayerRenderer>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && CheckIsOnGround())
-            Jump();
+        if (Input.GetKeyDown(KeyCode.Space))
+            IsNeedToJump = true;
 
         Move();
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsNeedToJump == true)
+        {
+            IsNeedToJump = false;
+            Jump();
+        }
     }
 
     private void Move()
     {
         float horizontalInput = Input.GetAxis(Horizontal);
-        transform.Translate(Vector2.right * horizontalInput * _speed * Time.deltaTime);
+        transform.Translate(Vector2.right * horizontalInput * Speed * Time.deltaTime);
 
         _playerRenderer.SwitchAnimations(horizontalInput);
         _playerRenderer.Flip(horizontalInput);

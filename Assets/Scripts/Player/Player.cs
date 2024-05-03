@@ -1,15 +1,14 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Picker))]
+[RequireComponent(typeof(Picker), typeof(Health))]
 public class Player : Humanoid
 {
-    [SerializeField] private float _amountOfHealthRestoredWhenTreated = 50;
-   
     private Picker _picker;
 
     private void Awake()
     {
         _picker = GetComponent<Picker>();
+        Health = GetComponent<Health>();
     }
 
     private void OnEnable()
@@ -22,14 +21,8 @@ public class Player : Humanoid
         _picker.PickedUpFirstAidKit -= GetTreatment;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void GetTreatment(float restoredHealth)
     {
-        if (collision.transform.TryGetComponent(out Enemy enemy))
-            Attack(enemy);
-    }
-
-    private void GetTreatment()
-    {
-        Health += _amountOfHealthRestoredWhenTreated;
+        Health.Count += restoredHealth;
     }
 }

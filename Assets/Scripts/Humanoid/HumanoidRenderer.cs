@@ -2,13 +2,13 @@ using UnityEngine;
 
 public abstract class HumanoidRenderer : MonoBehaviour
 {
-    protected SpriteRenderer spriteRenderer;
+    protected SpriteRenderer SpriteRenderer;
 
     public virtual void Flip(float movementDirectionX)
     {
         if (transform.position.x < movementDirectionX)
-            spriteRenderer.flipX = false;
+            SpriteRenderer.flipX = false;
         else if (transform.position.x > movementDirectionX)
-            spriteRenderer.flipX = true;
+            SpriteRenderer.flipX = true;
     }
 }

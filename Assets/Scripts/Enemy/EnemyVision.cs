@@ -5,12 +5,14 @@ using UnityEngine;
 public class EnemyVision : MonoBehaviour
 {
     [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private Vector3 _rayStartPosition;
     [SerializeField] private float _distanceOfVisionPlayer = 3;
     [SerializeField] private float _distanceOfVisionObstacle = 1;
-    [SerializeField] private float _distanceToLowerRay = 0.4f;
 
+    private float _maxDistanceOfVision = 0;
     private SpriteRenderer _spriteRenderer;
-    private Transform _hitTransform;
+    private float _distanceOfVisionPlayerSquared;
+    private float _distanceOfVisionObstacleSquared;
 
     public event Action<Vector2> SeePlayer;
     public event Action SeeObstacle;
@@ -18,43 +20,32 @@ public class EnemyVision : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _maxDistanceOfVision = Mathf.Max(_distanceOfVisionPlayer, _distanceOfVisionObstacle);
+        _distanceOfVisionPlayerSquared = _distanceOfVisionPlayer * _distanceOfVisionPlayer;
+        _distanceOfVisionObstacleSquared = _distanceOfVisionObstacle * _distanceOfVisionObstacle;
     }
 
     private void Update()
     {
-        if (TryToGetTransformThroughRay(transform.position, _distanceOfVisionPlayer, Color.yellow, out _hitTransform))
-        {
-            if (_hitTransform.TryGetComponent(out Player _))
-                SeePlayer?.Invoke(_hitTransform.position);
-        }
+        Vector3 rayStartPosition = transform.position + _rayStartPosition;
+        RaycastHit2D hit = Physics2D.Raycast(rayStartPosition, Vector2.right * GetViewDirection(), _maxDistanceOfVision, _layerMask);
+        Debug.DrawRay(rayStartPosition, Vector2.right * GetViewDirection() * _distanceOfVisionPlayer, Color.yellow);
+        Debug.DrawRay(rayStartPosition, Vector2.right * GetViewDirection() * _distanceOfVisionObstacle, Color.red);
 
-        Vector2 rayStartPosition = transform.position;
-        rayStartPosition.y -= _distanceToLowerRay;
-
-        if (TryToGetTransformThroughRay(rayStartPosition, _distanceOfVisionObstacle, Color.red, out _hitTransform))
+        if (hit)
         {
-            if (_hitTransform.TryGetComponent(out Player _) == false)
+           Vector3 hitPoint = hit.point;
+           float hitDistanceSquared = Vector2.SqrMagnitude(hitPoint - rayStartPosition);
+
+            if (hit.transform.TryGetComponent(out Player _) && hitDistanceSquared <= _distanceOfVisionPlayerSquared)
+                SeePlayer?.Invoke(hitPoint);
+            else if (hitDistanceSquared <= _distanceOfVisionObstacleSquared)
                 SeeObstacle?.Invoke();
         }
     }
 
-    private bool TryToGetTransformThroughRay(Vector2 startPosition, float distanceOfVision, Color color, out Transform hitTransform)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(startPosition, Vector2.right * CheckIfIsLookingRight(), distanceOfVision, _layerMask);
-        Debug.DrawRay(startPosition, Vector2.right * CheckIfIsLookingRight() * distanceOfVision, color);
-        hitTransform = null;
-        bool result = false;
-
-        if (hit)
-        {
-            hitTransform = hit.transform;
-            result = true;
-        }
-
-        return result;
-    }
-
-    private int CheckIfIsLookingRight()
+    private int GetViewDirection()
     {
         int lookingRight = 1;
 
