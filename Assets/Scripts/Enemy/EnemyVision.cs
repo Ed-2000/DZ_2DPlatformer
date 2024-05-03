@@ -10,6 +10,7 @@ public class EnemyVision : MonoBehaviour
     [SerializeField] private float _distanceToLowerRay = 0.4f;
 
     private SpriteRenderer _spriteRenderer;
+    private Transform _hitTransform;
 
     public event Action<Vector2> SeePlayer;
     public event Action SeeObstacle;
@@ -21,26 +22,26 @@ public class EnemyVision : MonoBehaviour
 
     private void Update()
     {
-        if (TryToGetTransformThroughRay(transform.position, Vector2.right * CheckIfIsLookingRight(), _distanceOfVisionPlayer, _layerMask, Color.yellow, out Transform hitTransform))
+        if (TryToGetTransformThroughRay(transform.position, _distanceOfVisionPlayer, Color.yellow, out _hitTransform))
         {
-            if (hitTransform.TryGetComponent(out Player _))
-                SeePlayer?.Invoke(hitTransform.position);
+            if (_hitTransform.TryGetComponent(out Player _))
+                SeePlayer?.Invoke(_hitTransform.position);
         }
 
         Vector2 rayStartPosition = transform.position;
         rayStartPosition.y -= _distanceToLowerRay;
 
-        if (TryToGetTransformThroughRay(rayStartPosition, Vector2.right * CheckIfIsLookingRight(), _distanceOfVisionObstacle, _layerMask, Color.red, out hitTransform))
+        if (TryToGetTransformThroughRay(rayStartPosition, _distanceOfVisionObstacle, Color.red, out _hitTransform))
         {
-            if (hitTransform.TryGetComponent(out Player _) == false)
+            if (_hitTransform.TryGetComponent(out Player _) == false)
                 SeeObstacle?.Invoke();
         }
     }
 
-    private bool TryToGetTransformThroughRay(Vector2 startPosition, Vector2 direction, float distanceOfVision, LayerMask layerMask, Color color, out Transform hitTransform)
+    private bool TryToGetTransformThroughRay(Vector2 startPosition, float distanceOfVision, Color color, out Transform hitTransform)
     {
-        RaycastHit2D hit = Physics2D.Raycast(startPosition, direction, distanceOfVision, layerMask);
-        Debug.DrawRay(startPosition, direction * distanceOfVision, color);
+        RaycastHit2D hit = Physics2D.Raycast(startPosition, Vector2.right * CheckIfIsLookingRight(), distanceOfVision, _layerMask);
+        Debug.DrawRay(startPosition, Vector2.right * CheckIfIsLookingRight() * distanceOfVision, color);
         hitTransform = null;
         bool result = false;
 
