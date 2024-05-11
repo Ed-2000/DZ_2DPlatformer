@@ -7,8 +7,8 @@ public class Player : Humanoid
 
     private void Awake()
     {
-        _picker = GetComponent<Picker>();
         Health = GetComponent<Health>();
+        _picker = GetComponent<Picker>();
     }
 
     private void OnEnable()
