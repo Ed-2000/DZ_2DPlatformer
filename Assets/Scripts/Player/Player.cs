@@ -23,6 +23,6 @@ public class Player : Humanoid
 
     private void GetTreatment(float restoredHealth)
     {
-        Health.Count += restoredHealth;
+        Health.Value += restoredHealth;
     }
 }

@@ -3,22 +3,28 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] protected float _healthCount = 100;
-    
-    public event Action<float> HealthHasChanged;
+    [SerializeField] private float _maxValue = 100.0f;
 
-    public float Count
+    private float _value;
+
+    public event Action<float> HasChanged;
+
+    public float Value
     {
-        get => _healthCount;
+        get => _value;
 
         set
         {
-            if (value < 0)
-                _healthCount = 0;
-            else
-                _healthCount = value;
-
-            HealthHasChanged?.Invoke(_healthCount);
+            _value = Mathf.Clamp(value, 0, MaxValue);
+            HasChanged?.Invoke(_value);
         }
+    }
+
+    public float MaxValue { get => _maxValue; }
+
+    private void Awake()
+    {
+        Value = MaxValue;
+        HasChanged?.Invoke(Value);
     }
 }

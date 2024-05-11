@@ -8,9 +8,9 @@ public abstract class HumanoidAttacker : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-        Health.Count -= damage;
+        Health.Value -= damage;
 
-        if (Health.Count <= 0)
+        if (Health.Value <= 0)
             Destroy(gameObject);
     }
 
