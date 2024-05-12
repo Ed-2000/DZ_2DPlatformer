@@ -2644,7 +2644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _area: {fileID: 135962000}
-  _suctionPower: 1
+  _suctionPower: 10
   _timeOfAction: 6
 --- !u!1 &1836290699
 GameObject:
