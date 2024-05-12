@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(EnemyRenderer), typeof(EnemyVision))]
 public class EnemyMovement : HumanoidMovement
 {
-    [SerializeField] private float _timeBetweenJumps = 0.25f;
+    [SerializeField] private float _jumpsDelay = 0.25f;
     [SerializeField] private Transform[] _waypoints;
 
     private EnemyRenderer _enemyRenderer;
@@ -59,7 +59,7 @@ public class EnemyMovement : HumanoidMovement
 
     private void ObstacleVisibilityHandler()
     {
-        if (_timePassedBetweenJumps >= _timeBetweenJumps)
+        if (_timePassedBetweenJumps >= _jumpsDelay)
         {
             _timePassedBetweenJumps = 0;
             IsNeedToJump = true;

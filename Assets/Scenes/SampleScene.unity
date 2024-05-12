@@ -215,13 +215,14 @@ GameObject:
   - component: {fileID: 135961997}
   - component: {fileID: 135961998}
   - component: {fileID: 135961999}
+  - component: {fileID: 135962000}
   m_Layer: 2
-  m_Name: Circle
+  m_Name: VampirismAreaTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &135961997
 Transform:
   m_ObjectHideFlags: 0
@@ -324,6 +325,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &135962000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135961996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50f1368b198fb0408619a2d3e00111a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &154217712
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +515,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aple (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.5699997
@@ -541,6 +558,10 @@ PrefabInstance:
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_IsTrigger
@@ -1136,6 +1157,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 897994261}
   m_CullTransparentMesh: 1
+--- !u!1 &919687907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 919687908}
+  - component: {fileID: 919687909}
+  - component: {fileID: 919687910}
+  m_Layer: 2
+  m_Name: PickerAreaTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &919687908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919687907}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1782273243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &919687909
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919687907}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.25}
+  m_Size: {x: 1, y: 1.5}
+  m_Direction: 0
+--- !u!114 &919687910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919687907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c303c6f724fe0347852182beb27e152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countOfApple: 0
 --- !u!1 &940577389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,6 +1435,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aple (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.07
@@ -1374,6 +1480,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -1398,6 +1508,10 @@ PrefabInstance:
     - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_Name
       value: Aple (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1438,6 +1552,10 @@ PrefabInstance:
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_IsTrigger
@@ -1533,6 +1651,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aple (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.8199997
@@ -1574,6 +1696,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -1598,6 +1724,10 @@ PrefabInstance:
     - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_Name
       value: Aple (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1638,6 +1768,10 @@ PrefabInstance:
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_IsTrigger
@@ -1929,7 +2063,7 @@ MonoBehaviour:
   LayerMask:
     serializedVersion: 2
     m_Bits: 1
-  JumpForce: 5.5
+  JumpForce: 6.5
   DistanceToGround: 1.25
   Speed: 3
   _jumpsDelay: 0.1
@@ -2112,6 +2246,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aple (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.57
@@ -2151,6 +2289,10 @@ PrefabInstance:
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_IsTrigger
@@ -2255,11 +2397,11 @@ GameObject:
   - component: {fileID: 1782273244}
   - component: {fileID: 1782273248}
   - component: {fileID: 1782273250}
-  - component: {fileID: 1782273249}
   - component: {fileID: 1782273252}
   - component: {fileID: 1782273251}
   - component: {fileID: 1782273247}
   - component: {fileID: 1782273246}
+  - component: {fileID: 1782273253}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -2333,6 +2475,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1899925093}
+  - {fileID: 919687908}
   - {fileID: 135961997}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2428,6 +2571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4729af66c1dceca419c81b8484af42b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _picker: {fileID: 919687910}
 --- !u!95 &1782273248
 Animator:
   serializedVersion: 5
@@ -2449,19 +2593,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1782273249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782273240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c303c6f724fe0347852182beb27e152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _countOfApple: 0
 --- !u!114 &1782273250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2500,6 +2631,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 10
+--- !u!114 &1782273253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782273240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0706cba318ff347ad39ff50a710edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _area: {fileID: 135962000}
+  _suctionPower: 1
+  _timeOfAction: 6
 --- !u!1 &1836290699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,7 +2733,7 @@ GameObject:
   - component: {fileID: 1843514125}
   - component: {fileID: 1843514124}
   - component: {fileID: 1843514127}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FirstAidKit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5458,6 +5604,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Aple
       objectReference: {fileID: 0}
+    - target: {fileID: 2374084633005875818, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.3199997
@@ -5497,6 +5647,10 @@ PrefabInstance:
     - target: {fileID: 4067543668420882892, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8432910654799301464, guid: 5c0641ab0405927418fa31182d3def9b, type: 3}
       propertyPath: m_IsTrigger

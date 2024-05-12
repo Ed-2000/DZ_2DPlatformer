@@ -1,24 +1,28 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Picker), typeof(Health))]
+[RequireComponent(typeof(Health), typeof(Vampirism))]
 public class Player : Humanoid
 {
-    private Picker _picker;
+    [SerializeField] private Picker _picker;
+
+    private Vampirism _vampirism;
 
     private void Awake()
     {
         Health = GetComponent<Health>();
-        _picker = GetComponent<Picker>();
+        _vampirism = GetComponent<Vampirism>();
     }
 
     private void OnEnable()
     {
         _picker.PickedUpFirstAidKit += GetTreatment;
+        _vampirism.SucksLife += GetTreatment;
     }
 
     private void OnDisable()
     {
         _picker.PickedUpFirstAidKit -= GetTreatment;
+        _vampirism.SucksLife -= GetTreatment;
     }
 
     private void GetTreatment(float restoredHealth)
